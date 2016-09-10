@@ -1,0 +1,77 @@
+﻿<SettingsFlyout
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HermzApp.WODTimer.Windows81"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="using:WinRTXamlToolkit.Converters"
+    x:Class="HermzApp.WODTimer.Windows81.AboutFlyout"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    x:Uid="About"
+    Title="About"
+    d:DesignWidth="346">
+
+    <SettingsFlyout.Resources>
+        <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </SettingsFlyout.Resources>
+
+    <!-- This StackPanel acts as a root panel for vertical layout of the content sections -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+        <!-- The StackPanel(s) below define individual content sections -->
+
+        <!-- Content Section 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="WOD Timer" />
+            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,25" TextWrapping="Wrap">
+                <TextBlock.Text>Version 2.0</TextBlock.Text>
+            </TextBlock>
+          
+            <StackPanel x:Name="BuyNowSP" Orientation="Vertical" Visibility="{Binding IsNotLicensed, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay, Source={StaticResource License}}">
+                <TextBlock x:Name="PremiumTitle" Style="{StaticResource TitleTextBlockStyle}" Text="{Binding FormattedPrice, Source={StaticResource License}}" />
+                <TextBlock x:Name="PremiumBody" Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,0" TextWrapping="Wrap">
+					<Run Text="1. Use Rep Counter (tap anywhere)."/>
+					<LineBreak/>
+                    <Run Text="2. Unlock all present timers."/>
+					<LineBreak/>
+                    <Run Text="3. Zoom in/out of timer pages like a picture."/>
+					<LineBreak/>
+					<Run Text="4. Say good-bye to banner ads!"/>
+					<LineBreak/>
+					<Run Text="5. Buy once, you will get all future premium features!"/>
+                    <LineBreak/>                    					
+                    <LineBreak/>
+                </TextBlock>
+                <AppBarButton Margin="-25, -5, 0, 25" Icon="Shop" Label="Buy Now!" Click="BuyNowAppBarButton_Click"/>
+            </StackPanel>
+
+            <StackPanel x:Name="ThankYouSP" Orientation="Vertical" Visibility="{Binding IsLicensed, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay, Source={StaticResource License}}">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Thank You for Your Purchase!" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,25" TextWrapping="Wrap">
+                    <LineBreak/>
+                    <Run Text="To Zoom" FontWeight="ExtraBold"/>
+                    <LineBreak/>
+                    <Run Text="For big screen, or want to focus on the timer."/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Run Text="For touch screen or touch trakpad" FontWeight="Bold"/>
+                    <Run Text=", use two fingers to pinch and stretch to zoom."/>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Run Text="Using mouse and keyboard" FontWeight="Bold"/>
+                    <Run Text=", hold down Control key and scroll up and down on mouse."/>
+                    <LineBreak/>
+                    <LineBreak/>					
+                </TextBlock>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Margin="0,0,0,25" TextWrapping="Wrap">
+				<Hyperlink NavigateUri="https://wodtimer.wordpress.com/privacy/">
+					<Run Text="Privacy Statement"/>
+				</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </StackPanel>
+</SettingsFlyout>

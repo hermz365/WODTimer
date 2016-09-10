@@ -1,0 +1,1 @@
+MainPackage=C:\WODTimer\WODTimer\WODTimer.Windows\bin\Release\WODTimer.Windows_2.0.0.0_AnyCPU.appx

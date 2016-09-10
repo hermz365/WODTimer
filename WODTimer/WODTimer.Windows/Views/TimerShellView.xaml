@@ -1,0 +1,216 @@
+﻿<Page
+    x:Name="TimerShellViewPageRoot"
+    x:Class="HermzApp.WODTimer.Windows81.Views.TimerShellView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
+    xmlns:bnthllcControls="using:HermzApp.WODTimer.Windows81.Controls"
+    xmlns:converters="using:WinRTXamlToolkit.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:Microsoft.Advertising.WinRT.UI"
+    mc:Ignorable="d"
+    Tapped="TimerShellView_OnTapped">
+
+    <Page.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:BooleanToZoomModeConverter x:Key="BooleanToZoomModeConverter"/>
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter"/>
+        <converters:BooleanToDoubleConverter x:Key="BooleanToDoubleConverter" TrueValue="1" FalseValue="0.5"/>
+    </Page.Resources>
+
+    <ScrollViewer MinZoomFactor="1" MaxZoomFactor="2" 
+                  ZoomMode="{Binding IsLicensed, Converter={StaticResource BooleanToZoomModeConverter}, 
+                             Mode=OneWay, Source={StaticResource License}}"
+                  HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Auto" 
+                  VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
+        <!--
+            This grid acts as a root panel for the page that defines two rows:
+            * Row 0 contains the back button and page title
+            * Row 1 contains the rest of the page layout
+        -->
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="140"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Center">
+                        <Button Name="StartButton" Content="Start" Margin="0 0 35 0" Height="65" Width="150" 
+                                FontFamily="Font/CaptureIt.ttf#Capture it" Tapped="StartStopResetButton_OnTapped"
+                                FontSize="{ThemeResource HubSectionHeaderThemeFontSize}" 
+                                Background="Green" IsEnabled="{Binding IsTimerNotInProgress}"
+                                Visibility="{Binding IsStartButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Button Name="StopButton" Content="Stop" Margin="0 0 35 0" Height="65" Width="150" 
+                                FontFamily="Font/CaptureIt.ttf#Capture it" Tapped="StartStopResetButton_OnTapped"
+                                FontSize="{ThemeResource HubSectionHeaderThemeFontSize}" 
+                                Background="Red" Command="{Binding StopTimerCommand}"
+                                Visibility="{Binding IsStopButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Button Name="ResetButton" Content="Reset" Margin="0 0 35 0" Height="65" Width="150" 
+                                FontFamily="Font/CaptureIt.ttf#Capture it" Tapped="StartStopResetButton_OnTapped"
+                                FontSize="{ThemeResource HubSectionHeaderThemeFontSize}" 
+                                Background="DarkOrange" Command="{Binding ResetTimerCommand}"
+                                Visibility="{Binding IsResetButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <ToggleSwitch Name="RepCounterCb" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                      OnContent="Reps Counter" OffContent="Reps Counter"
+                                      IsOn="{Binding IsRepCounterVisible, Mode=TwoWay}"
+                                      Visibility="{Binding IsRepsCounterToggleVisible, Converter={StaticResource BooleanToVisibilityConverter}}" IsDoubleTapEnabled="False" IsRightTapEnabled="False"/>
+                    </StackPanel>
+                    <bnthllcControls:AMRAPTopSecControl Grid.Row="1"
+                                                        HorizontalAlignment="Center" Margin="0 20 0 0"
+                                                        Visibility="{Binding IsAMRAPTopSecControlVisible, 
+                                                                    Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                    Mode=OneTime}" />
+                    <bnthllcControls:EMOMTopSecControl  Grid.Row="1"
+                                                        HorizontalAlignment="Center" Margin="0 20 0 0"
+                                                        Visibility="{Binding IsEMOMTopSecControlVisible, 
+                                                                    Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                    Mode=OneTime}" />
+                    <bnthllcControls:TabataTopSecControl Grid.Row="1"
+                                                         HorizontalAlignment="Center" Margin="0 20 0 0"
+                                                         Visibility="{Binding IsTabataSecControlVisible, 
+                                                                     Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                     Mode=OneTime}"/>
+                    <bnthllcControls:FGBTopSecControl Grid.Row="1"
+                                                         HorizontalAlignment="Center" Margin="0 20 0 0"
+                                                         Visibility="{Binding IsFGBSecControlVisible, 
+                                                                     Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                     Mode=OneTime}"/>
+                    <Grid Grid.Row="2">
+                        <Grid.Resources>
+                            <Storyboard x:Name="TimerGridFadeOutStoryboard">
+                                <FadeOutThemeAnimation TargetName="TimerGrid" Duration="0:0:1" />
+                            </Storyboard>
+                            <Storyboard x:Name="TimerGridFadeInStoryboard">
+                                <FadeInThemeAnimation TargetName="TimerGrid" Duration="0:0:1"/>
+                            </Storyboard>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!--<TextBox Grid.Column="0" x:Name="WOD" 
+                                 HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>-->
+                        <TextBlock Grid.Column="1" x:Name="TotalTime" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap" Height="auto" Width="auto"
+                                   FontSize="{StaticResource TotalTimeFontSizeBig}"
+                                   Text="{Binding MainTimeLabelTimeSpan, Converter={StaticResource TimeSpanToStringConverter}}" 
+                                   Visibility="{Binding IsMainTimeLabelVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Canvas Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <controls:CountdownControl x:Name="MyCountdownControl"
+                                Canvas.Left="-50" Canvas.Top="-50"
+                                MainCanvasHeight="100" MainCanvasWidth="100"    
+                                MainCanvasLeft="-50" MainCanvasTop="-50"
+                                InnerRadius="75" Radius="100" NumFrontSize="48"/>
+                        </Canvas>
+                        <Grid Grid.Column="1" Name="TimerGrid" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Visibility="{Binding IsPresetTimersGridVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <bnthllcControls:PresetTimerButton Grid.Row="0" Grid.Column="0" Name="Sec10" TimeText="10 sec" PresetTimerButtonTapped="TimerButtonsOnTapped"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="0" Grid.Column="1" Name="Sec20" TimeText="20 sec" PresetTimerButtonTapped="TimerButtonsOnTapped"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="0" Grid.Column="2" Name="Sec30" TimeText="30 sec" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="0" Grid.Column="3" Name="Sec40" TimeText="40 sec" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="0" Grid.Column="4" Name="Sec50" TimeText="50 sec" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="1" Grid.Column="0" Name="Sec60" TimeText="60 sec" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="1" Grid.Column="1" Name="Sec90" TimeText="90 sec" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="1" Grid.Column="2" Name="Sec120" TimeText="2 min" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="1" Grid.Column="3" Name="Sec180" TimeText="3 min" PresetTimerButtonTapped="TimerButtonsOnTapped" Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, Mode=TwoWay, Source={StaticResource License}}"/>
+                            <bnthllcControls:PresetTimerButton Grid.Row="1" Grid.Column="4" Name="Sec240" TimeText="4 min" PresetTimerButtonTapped="TimerButtonsOnTapped"/>
+                        </Grid>
+                        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="0 0 40 0"  VerticalAlignment="Center"
+                                                            Visibility="{Binding IsRepCounterVisible, 
+                                                            Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Vertical" 
+                                        Opacity="{Binding IsLicensed, Converter={StaticResource BooleanToDoubleConverter}, 
+                                        Mode=OneWay, Source={StaticResource License}, FallbackValue=0.5}">
+                                <TextBlock Name="RepCountTb" Text="{Binding RepsCount}" FontSize="{StaticResource TotalTimeFontSizeMed}" 
+                                           Width="auto"/>
+                                <TextBlock Text="Reps" HorizontalAlignment="Center" FontSize="{StaticResource TotalTimeFontSizeExtraSmall}" Width="auto"/>
+                            </StackPanel>
+                            <AppBarButton Icon="Sync" Label="Reset" HorizontalAlignment="Center"
+                                          Visibility="{Binding IsLicensed, Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                      Mode=OneWay, Source={StaticResource License}}"
+                                          Tapped="ResetRepButton_OnTapped"/>
+                            <AppBarButton Icon="Up" Label="Upgrade to unlock" HorizontalAlignment="Center"
+                                          Visibility="{Binding IsNotLicensed, Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                      Mode=OneWay, Source={StaticResource License}}" Tapped="UpgradeAppBarButton_OnTapped"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <bnthllcControls:TabataBottomSecControl Grid.Row="3"
+                                                            HorizontalAlignment="Center"
+                                                            Visibility="{Binding IsTabataSecControlVisible, 
+                                                                        Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                        Mode=OneTime, FallbackValue=false}"/>
+                    <bnthllcControls:FGBBottomSecControl Grid.Row="3"
+                                                         HorizontalAlignment="Center"
+                                                         Visibility="{Binding IsFGBSecControlVisible, 
+                                                                     Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                                     Mode=OneTime, FallbackValue=false}"/>
+                   
+                </Grid>
+            </Grid>
+
+            <!-- Back button and page title -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="BackButton" Margin="39,59,39,0" Command="{Binding NavigationHelper.GoBackCommand, ElementName=TimerShellViewPageRoot}"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding TitleText}" Style="{StaticResource HeaderTextBlockStyle}"
+                            IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"
+                            FontFamily="Font/CaptureIt.ttf#Capture it"/>
+                    <ui:AdControl Grid.Column="1" 
+                            Name="BannerAds"
+                            Margin="0 0 20 0"
+                            HorizontalAlignment="Right" 
+                            Height="90" 
+                            VerticalAlignment="Center"
+                            Visibility="{Binding IsNotLicensed, 
+                                        Converter={StaticResource BooleanToVisibilityConverter}, 
+                                        Mode=OneWay, Source={StaticResource License}}"
+                            ErrorOccurred="OnAdsError"
+                            Width="728"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

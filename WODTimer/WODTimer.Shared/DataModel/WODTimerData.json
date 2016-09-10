@@ -1,0 +1,61 @@
+{"Groups":[
+  {
+    "UniqueId": "Timers",
+    "Title": "WOD Timers",
+    "Subtitle": "Various Timers for WODs",
+    "ImagePath": "Assets/DarkGray.png",
+    "Description" : "",
+    "Items":
+    [
+      {
+        "UniqueId": "Standard-Timer",
+        "Title": "Standard Timer",
+        "Subtitle": "Standard Count Up Timer",
+        "ImagePath": "Assets/StandardIcon.png",
+        "Description" : " ",
+        "Content" : " "
+      },
+      {
+        "UniqueId": "AMRAP-Timer",
+        "Title": "AMRAP Timer",
+        "Subtitle": "AMRAP Count Down Timer",
+        "ImagePath": "Assets/AMRAPIcon.png",
+        "Description" : " ",
+        "Content" : " "
+      },
+      {
+        "UniqueId": "EMOM-Timer",
+        "Title": "EMOM Timer",
+        "Subtitle": "Every Min On The Min Timer",
+        "ImagePath": "Assets/EMOMIcon.png",
+        "Description" : " ",
+        "Content" : " "
+      },
+      {
+        "UniqueId": "Tabata-Timer",
+        "Title": "Tabata Timer",
+        "Subtitle": "20sec Work, 10sec Rest",
+        "ImagePath": "Assets/TabataIcon.png",
+        "Description" : " ",
+        "Content" : " "
+      },
+      {
+        "UniqueId": "FGB-Timer",
+        "Title": "FGB-Style Timer",
+        "Subtitle": "Fight Gone Bad Style Timer",
+        "ImagePath": "Assets/FGBIcon.png",
+        "Description" : " ",
+        "Content" : " "
+      },
+      {
+        "UniqueId": "Preset-Timers",
+        "Title": "Preset Timers",
+        "Subtitle": "Your go-to timers for warmups, stretching",
+        "ImagePath": "Assets/PresetIcons.png",
+        "Description" : " ",
+        "Content" : " "
+      }
+    ]
+  }
+]
+}

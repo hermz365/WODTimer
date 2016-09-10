@@ -1,0 +1,18 @@
+﻿<UserControl
+    x:Class="HermzApp.WODTimer.Windows81.Controls.PresetTimerButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HermzApp.WODTimer.Windows81.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="400"
+    d:DesignWidth="400">
+    
+    <Grid>
+        <Ellipse Fill="LightBlue" HorizontalAlignment="Center" Height="150"
+                 VerticalAlignment="Center" Width="150" Margin="10" Tapped="PresetTimerButton_Tapped" IsDoubleTapEnabled="False" IsRightTapEnabled="False" StrokeThickness="3"/>
+        <TextBlock Name="TimeTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Text="10 sec" 
+                   Foreground="Black" FontSize="30" FontWeight="Bold" Tapped="PresetTimerButton_Tapped"/>
+    </Grid>
+</UserControl>

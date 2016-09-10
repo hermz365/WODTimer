@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="SharedProjectFile_SccProperties">
+    <SharedProjectFile_ProjectGuid>{d038fcdc-a319-47e2-811b-ffddc1bf040e}</SharedProjectFile_ProjectGuid>
+    <SharedProjectFile_SccProjectName>SAK</SharedProjectFile_SccProjectName>
+    <SharedProjectFile_SccAuxPath>SAK</SharedProjectFile_SccAuxPath>
+    <SharedProjectFile_SccLocalPath>SAK</SharedProjectFile_SccLocalPath>
+    <SharedProjectFile_SccProvider>SAK</SharedProjectFile_SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>18244f05-d9e2-4a4f-974d-03acb7370c9f</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>HermzApp.WODTimer.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Scaling.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\ProductLicenseDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\MicrosoftAdsUnitsData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\SoundsData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\WODSettingsValues.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\WODTimerDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FGBTimerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PresetTimersViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TabataTimerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EMOMTimerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AMRAPTimerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StandardTimerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TimerShellViewModelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)DataModel\WODTimerData.json" />
+    <Content Include="$(MSBuildThisFileDirectory)Font\CaptureIt.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Sounds\1.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Sounds\2.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Sounds\3.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Sounds\endWOD.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Sounds\endWODLong.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Sounds\startWOD.wav" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,35 @@
+﻿<UserControl
+    x:Class="HermzApp.WODTimer.Windows81.Controls.TabataBottomSecControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:WinRTXamlToolkit.Converters"
+    xmlns:local="using:HermzApp.WODTimer.Windows81.Controls">
+
+    <UserControl.Resources>
+        <converters:BooleanToEnabledColor x:Key="BooleanToEnabledColor"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="15 0 15 25">
+                <TextBlock Text="Sets Finished" 
+                       TextAlignment="Center" FontSize="{ThemeResource ComboBoxArrowThemeFontSize}"/>
+                <TextBlock Text="{Binding SetFinished, Mode=TwoWay}" 
+                       TextAlignment="Center" FontSize="{StaticResource TextBlockWithLabelNumFontSize}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="15 0 15 25">
+                <TextBlock Text="Sets Left"
+                       TextAlignment="Center" FontSize="{ThemeResource ComboBoxArrowThemeFontSize}"/>
+                <TextBlock Text="{Binding Path=SetLeft, Mode=TwoWay}"
+                       TextAlignment="Center" FontSize="{StaticResource TextBlockWithLabelNumFontSize}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="15 0 15 25">
+                <TextBlock Text="Work/Rest"
+                       TextAlignment="Center" FontSize="{ThemeResource ComboBoxArrowThemeFontSize}"/>
+                <TextBlock Text="{Binding Path=WorkRest, Mode=TwoWay}"
+                       TextAlignment="Center" FontSize="{StaticResource TextBlockWithLabelNumFontSize}"
+                       Foreground="{Binding IsWorking, Converter={StaticResource BooleanToEnabledColor}, Mode=OneWay}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
